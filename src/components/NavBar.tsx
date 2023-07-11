@@ -11,7 +11,7 @@ export const NavBar: React.FC = () => {
         "flex",
         "flex-row",
         "justify-between",
-        "py-5",
+        "py-6",
         "items-center",
       )}
     >
@@ -23,8 +23,12 @@ export const NavBar: React.FC = () => {
         />
       </Link>
       <div className={classNames("flex", "flex-row", "space-x-10")}>
-        <h1>Search</h1>
-        <h1>Saved</h1>
+        <Link to="/search">
+          <h1>Search</h1>
+        </Link>
+        <Link to="/saved">
+          <h1>Saved</h1>
+        </Link>
       </div>
     </nav>
   );
