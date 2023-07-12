@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import classNames from "classnames";
 import { UserItem } from "./UserItem";
 import { useNavigate } from "react-router-dom";
-import { useHub } from "../utils/HubContext";
+import { useHub } from "../utils/useHub";
 import { HubUser } from "../utils/@types.user";
 import { useResults } from "../utils/useResults";
 

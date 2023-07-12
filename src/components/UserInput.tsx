@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { ResultsBox } from "./ResultsBox";
-import { useHub } from "../utils/HubContext";
+import { useHub } from "../utils/useHub";
 import { Link } from "react-router-dom";
 
 export const UserInput: React.FC = () => {

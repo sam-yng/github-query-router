@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import check from "../assets/icons/checkmark.png";
 import flag from "../assets/icons/flag.png";
 import greenflag from "../assets/icons/flag-green.png";
-import { useHub } from "../utils/HubContext";
+import { useHub } from "../utils/useHub";
 
 type UserItemProps = {
   avatar?: string;

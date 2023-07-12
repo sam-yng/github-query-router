@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { useHub } from "../utils/HubContext";
+import { useHub } from "../utils/useHub";
 import { UserItem } from "./UserItem";
 
 export const SavedBox: React.FC = () => {

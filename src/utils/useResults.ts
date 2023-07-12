@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useHub } from "./HubContext";
+import { useHub } from "./useHub";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
