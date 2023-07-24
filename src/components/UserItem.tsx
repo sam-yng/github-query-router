@@ -1,12 +1,11 @@
 /* eslint-disable indent */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import check from "../assets/icons/checkmark.png";
 import flag from "../assets/icons/flag.png";
 import greenflag from "../assets/icons/flag-green.png";
-import { useResults } from "../utils/useResults";
-import { GithubUser } from "../utils/@types.user";
+import { useSavedUsers } from "../utils/useSavedUsers";
 
 type UserItemProps = {
   avatar?: string;
@@ -23,18 +22,20 @@ export const UserItem: React.FC<UserItemProps> = ({
   id,
 }: UserItemProps) => {
   const [isHovering, setIsHovering] = useState(false);
-  const { users, setUsers } = useResults();
+  const { addUser } = useSavedUsers();
 
   const onMouseEnter = () => setIsHovering(true);
   const onMouseLeave = () => setIsHovering(false);
 
-  const onClickSaveUser = useCallback(() => {
-    const updatedUsers = users?.map((item: GithubUser) =>
-      item.id === id ? { ...item, flagged: !item.flagged } : item,
-    );
-    setUsers(updatedUsers);
-    console.log(users[0].flagged);
-  }, [users, id, flagged, setUsers]);
+  const onClickSaveUser = useCallback(() => {}, [id]);
+
+  const iconSrc = useMemo(() => {
+    if (isHovering) {
+      return greenflag;
+    }
+
+    return flagged ? check : flag;
+  }, [isHovering, flagged]);
 
   return (
     <article
@@ -63,7 +64,7 @@ export const UserItem: React.FC<UserItemProps> = ({
         onMouseLeave={onMouseLeave}
         className={classNames("w-6", "h-6")}
       >
-        <img alt="icon" src={isHovering ? greenflag : flagged ? check : flag} />
+        <img alt="icon" src={iconSrc} />
       </button>
     </article>
   );

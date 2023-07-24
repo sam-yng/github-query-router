@@ -8,7 +8,7 @@ export const UserInput: React.FC = () => {
 
   return (
     <>
-      <main
+      <div
         className={classNames(
           "flex",
           "flex-row",
@@ -36,7 +36,7 @@ export const UserInput: React.FC = () => {
             "delay-50",
             "transition-colors",
           )}
-        ></input>
+        />
         <Link to={input}>
           <button
             className={classNames(
@@ -57,7 +57,7 @@ export const UserInput: React.FC = () => {
             Search
           </button>
         </Link>
-      </main>
+      </div>
       <ResultsBox />
     </>
   );

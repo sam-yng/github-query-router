@@ -23,7 +23,7 @@ export const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />}>
-              <Route path=":id" element />
+              <Route path=":userQuery" element />
             </Route>
             <Route path="/saved" element={<Saved />}>
               <Route path=":savedid" element />

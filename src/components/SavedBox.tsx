@@ -1,10 +1,10 @@
 import React from "react";
 import classNames from "classnames";
 import { UserItem } from "./UserItem";
-import { useResults } from "../utils/useResults";
+import { useGithubSearchResults } from "../utils/useResults";
 
 export const SavedBox: React.FC = () => {
-  const { users } = useResults();
+  const { users } = useGithubSearchResults();
 
   return (
     <>

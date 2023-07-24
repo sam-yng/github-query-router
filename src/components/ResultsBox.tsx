@@ -3,15 +3,16 @@ import React from "react";
 import classNames from "classnames";
 import { UserItem } from "./UserItem";
 import { GithubUser } from "../utils/@types.user";
-import { useResults } from "../utils/useResults";
+import { useGithubSearchResults } from "../utils/useResults";
 
 export const ResultsBox: React.FC = () => {
-  const { isError, fetchStatus, isLoading } = useResults();
-  const { users } = useResults();
+  const { users, isError, fetchStatus, isLoading } = useGithubSearchResults();
 
   if (isError) {
     return <p className="text-xl text-red-400">Something went wrong</p>;
   }
+
+  const shouldShowLoadingState = fetchStatus !== "idle" && isLoading;
 
   return (
     <>
@@ -26,9 +27,10 @@ export const ResultsBox: React.FC = () => {
           "rounded-xl",
         )}
       >
-        {fetchStatus === "idle" && isLoading ? null : isLoading ? (
+        {shouldShowLoadingState && (
           <p className="my-4 mx-4 text-xl">Loading Users...</p>
-        ) : (
+        )}
+        {users.length > 0 && (
           <article>
             {users?.map((item: GithubUser) => (
               <UserItem

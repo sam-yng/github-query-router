@@ -1,29 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { GithubUser } from "./@types.user";
-import { useEffect, useMemo, useState } from "react";
 
-async function fetchUsers(name: string) {
-  const res = await fetch(`https://api.github.com/search/users?q=${name}`);
-  return await res.json();
+async function fetchUsers(userQuery: string) {
+  const res = await fetch(`https://api.github.com/search/users?q=${userQuery}`);
+  const response = await res.json();
+
+  return response.items as GithubUser[];
 }
 
-export const useResults = () => {
-  const { id } = useParams()
-  const [users, setUsers] = useState<GithubUser[]>([])
+export const useGithubSearchResults = () => {
+  const { userQuery } = useParams<{ userQuery: string}>()
 
-  const { data, isError, status, fetchStatus, isLoading } = useQuery(["user", location], () => fetchUsers(id as string), {
-    enabled: !!id,
-  });
+  const { data, isError, status, fetchStatus, isLoading } = useQuery(
+    ["user", userQuery],
+    () => userQuery ? fetchUsers(userQuery) : [],
+    { enabled: Boolean(userQuery) }
+  );
 
-  // const GithubUsers: GithubUser[] = data?.items.map(function(obj: typeof data){
-  //   const updatedUser = { id: obj.id, flagged: false, login: obj.login, html_url: obj.html_url }
-  //   return updatedUser
-  // })
-
-  useEffect(() => {
-    status === "success" ? setUsers(data.items) : null
-  }, [data, status])
-
-  return { users, setUsers, isError, status, fetchStatus, isLoading };
+  return { users: data ?? [], isError, status, fetchStatus, isLoading };
 };
