@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { UserInput } from "../components/UserInput";
+import { UserInput } from "../components/UserSearch";
 
 export const Search: React.FC = () => {
   return (

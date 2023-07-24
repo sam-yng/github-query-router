@@ -1,10 +1,11 @@
 import React from "react";
 import classNames from "classnames";
-import { useHub } from "../utils/useHub";
 import { UserItem } from "./UserItem";
+import { useResults } from "../utils/useResults";
 
 export const SavedBox: React.FC = () => {
-  const { users } = useHub();
+  const { users } = useResults();
+
   return (
     <>
       <main
@@ -20,7 +21,7 @@ export const SavedBox: React.FC = () => {
       >
         <article>
           {users
-            .filter((item) => item.flagged === true)
+            ?.filter((item) => item.flagged === true)
             .map((item) => (
               <UserItem
                 key={item.id}

@@ -26,7 +26,7 @@ export const App: React.FC = () => {
               <Route path=":id" element />
             </Route>
             <Route path="/saved" element={<Saved />}>
-              <Route path=":id" element />
+              <Route path=":savedid" element />
             </Route>
           </Routes>
         </div>

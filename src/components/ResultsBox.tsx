@@ -1,22 +1,15 @@
 /* eslint-disable indent */
-import React, { useEffect } from "react";
+import React from "react";
 import classNames from "classnames";
 import { UserItem } from "./UserItem";
-import { useNavigate } from "react-router-dom";
-import { useHub } from "../utils/useHub";
-import { HubUser } from "../utils/@types.user";
+import { GithubUser } from "../utils/@types.user";
 import { useResults } from "../utils/useResults";
 
 export const ResultsBox: React.FC = () => {
-  const { setInput, users } = useHub();
-  const { queryStatus } = useResults();
-  const navigate = useNavigate();
+  const { isError, fetchStatus, isLoading } = useResults();
+  const { users } = useResults();
 
-  useEffect(() => {
-    navigate("/search");
-  }, []);
-
-  if (queryStatus.isError) {
+  if (isError) {
     return <p className="text-xl text-red-400">Something went wrong</p>;
   }
 
@@ -33,12 +26,11 @@ export const ResultsBox: React.FC = () => {
           "rounded-xl",
         )}
       >
-        {queryStatus.fetchStatus === "idle" &&
-        queryStatus.isLoading ? null : queryStatus.isLoading ? (
+        {fetchStatus === "idle" && isLoading ? null : isLoading ? (
           <p className="my-4 mx-4 text-xl">Loading Users...</p>
         ) : (
           <article>
-            {users?.map((item: HubUser) => (
+            {users?.map((item: GithubUser) => (
               <UserItem
                 key={item.id}
                 id={item.id}

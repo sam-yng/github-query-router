@@ -1,4 +1,4 @@
-export interface HubUser {
+export interface GithubUser {
 	avatar_url: string
 	events_url: string
 	followers_url: string

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { useHub } from "./useHub";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { GithubUser } from "./@types.user";
+import { useEffect, useMemo, useState } from "react";
 
 async function fetchUsers(name: string) {
   const res = await fetch(`https://api.github.com/search/users?q=${name}`);
@@ -9,19 +9,21 @@ async function fetchUsers(name: string) {
 }
 
 export const useResults = () => {
-  const location = useLocation()
-  const { valid, input, setUsers } = useHub();
-  const userQuery = useQuery(["user", location], () => fetchUsers(input), {
-    enabled: !!valid,
+  const { id } = useParams()
+  const [users, setUsers] = useState<GithubUser[]>([])
+
+  const { data, isError, status, fetchStatus, isLoading } = useQuery(["user", location], () => fetchUsers(id as string), {
+    enabled: !!id,
   });
 
+  // const GithubUsers: GithubUser[] = data?.items.map(function(obj: typeof data){
+  //   const updatedUser = { id: obj.id, flagged: false, login: obj.login, html_url: obj.html_url }
+  //   return updatedUser
+  // })
+
   useEffect(() => {
-    if (userQuery.status === "success") {
-      setUsers(userQuery.data.items)
-    }
-  }, [userQuery.status, userQuery.data])
+    status === "success" ? setUsers(data.items) : null
+  }, [data, status])
 
-  const queryStatus = userQuery;
-
-  return { queryStatus };
+  return { users, setUsers, isError, status, fetchStatus, isLoading };
 };

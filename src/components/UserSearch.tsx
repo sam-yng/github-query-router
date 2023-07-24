@@ -1,19 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import { ResultsBox } from "./ResultsBox";
-import { useHub } from "../utils/useHub";
 import { Link } from "react-router-dom";
 
 export const UserInput: React.FC = () => {
-  const { setInput, input, setValid } = useHub();
-
-  const updateInput = (e: { target: { value: string } }) => {
-    setInput(e.target.value);
-  };
-
-  const handleClick = () => {
-    input.length > 0 ? setValid(true) : setValid(false);
-  };
+  const [input, setInput] = useState<string>("");
 
   return (
     <>
@@ -28,7 +19,7 @@ export const UserInput: React.FC = () => {
         )}
       >
         <input
-          onChange={updateInput}
+          onChange={(e) => setInput(e.target.value)}
           className={classNames(
             "border",
             "border-white",
@@ -46,9 +37,8 @@ export const UserInput: React.FC = () => {
             "transition-colors",
           )}
         ></input>
-        <Link to={`${input}`}>
+        <Link to={input}>
           <button
-            onClick={handleClick}
             className={classNames(
               "border",
               "border-white",

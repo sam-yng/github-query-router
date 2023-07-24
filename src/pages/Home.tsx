@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 export const Home: React.FC = () => {
   return (
@@ -15,7 +16,8 @@ export const Home: React.FC = () => {
       <h1 className={classNames("text-4xl", "tracking-wider", "fade-in")}>
         GitHub User Search
       </h1>
-      <button
+      <Link
+        to="/search"
         className={classNames(
           "border",
           "border-white",
@@ -34,7 +36,7 @@ export const Home: React.FC = () => {
         )}
       >
         Explore Now
-      </button>
+      </Link>
     </main>
   );
 };
