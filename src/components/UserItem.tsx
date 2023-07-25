@@ -5,42 +5,44 @@ import { Link } from "react-router-dom";
 import check from "../assets/icons/checkmark.png";
 import flag from "../assets/icons/flag.png";
 import greenflag from "../assets/icons/flag-green.png";
-import { SavedUser, useSavedUsers } from "../utils/useSavedUsers";
+import { useSavedUsers } from "../utils/useSavedUsers";
 
 type UserItemProps = {
   avatar?: string;
   name: string;
   link: string;
-  flagged: boolean;
   id: number;
 };
 
 export const UserItem: React.FC<UserItemProps> = ({
   name,
   link,
-  flagged,
   id,
 }: UserItemProps) => {
   const [isHovering, setIsHovering] = useState(false);
-  const { addUser, removeUser } = useSavedUsers();
+  const { savedUsers, addUser, removeUser } = useSavedUsers();
 
   const onMouseEnter = () => setIsHovering(true);
   const onMouseLeave = () => setIsHovering(false);
 
+  const isSaved = useMemo(() => {
+    return savedUsers.some((user) => user.id === id);
+  }, [id, savedUsers]);
+
   const onClickSaveUser = useCallback(() => {
-    if (!flagged) {
-      addUser({ name: name, id: id, link: link, flagged: true });
-    } else if (flagged) {
+    if (!isSaved) {
+      addUser({ name: name, id: id, link: link });
+    } else if (isSaved) {
       removeUser(id);
     }
-  }, [id]);
+  }, [id, name, link, isSaved, addUser, removeUser]);
 
   const iconSrc = useMemo(() => {
     if (isHovering) {
       return greenflag;
     }
-    return flagged ? check : flag;
-  }, [isHovering, flagged]);
+    return isSaved ? check : flag;
+  }, [isHovering, isSaved]);
 
   return (
     <article

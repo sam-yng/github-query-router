@@ -36,7 +36,6 @@ export const ResultsBox: React.FC = () => {
               <UserItem
                 key={item.id}
                 id={item.id}
-                flagged={item.flagged}
                 name={item.login}
                 link={item.html_url}
               />

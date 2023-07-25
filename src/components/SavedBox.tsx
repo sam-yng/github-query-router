@@ -23,7 +23,6 @@ export const SavedBox: React.FC = () => {
             <UserItem
               key={item.id}
               id={item.id}
-              flagged={item.flagged}
               name={item.name}
               link={item.link}
             />

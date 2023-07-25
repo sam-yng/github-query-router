@@ -6,12 +6,11 @@ export type SavedUser = {
   id: number,
   name: string,
   link: string,
-  flagged: boolean
 }
 
 export const useSavedUsers = () => {
   const [isInitalized, setIsInitialized] = useState(false);
-  const [savedUsers, setSavedUsers] = useState<SavedUser[]>([ { name: "example", id: 2, flagged: true, link: "hello" }]);
+  const [savedUsers, setSavedUsers] = useState<SavedUser[]>([]);
 
   const addUser = (user: SavedUser) => {
     setSavedUsers((currentSavedUsers) => [...currentSavedUsers, user]);
@@ -43,8 +42,12 @@ export const useSavedUsers = () => {
   }, [isInitalized]);
 
   useEffect(() => {
+    if (!isInitalized) {
+      return;
+    }
+
     localStorage.setItem(SAVED_USERS_KEY, JSON.stringify(savedUsers));
-  }, [savedUsers]);
+  }, [savedUsers, isInitalized]);
 
   return { savedUsers, addUser, removeUser };
 }
