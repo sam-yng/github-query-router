@@ -1,11 +1,10 @@
 import React from "react";
 import classNames from "classnames";
+import { useSavedUsers, SavedUser } from "../utils/useSavedUsers";
 import { UserItem } from "./UserItem";
-import { useGithubSearchResults } from "../utils/useResults";
 
 export const SavedBox: React.FC = () => {
-  const { users } = useGithubSearchResults();
-
+  const { savedUsers } = useSavedUsers();
   return (
     <>
       <main
@@ -20,17 +19,15 @@ export const SavedBox: React.FC = () => {
         )}
       >
         <article>
-          {users
-            ?.filter((item) => item.flagged === true)
-            .map((item) => (
-              <UserItem
-                key={item.id}
-                id={item.id}
-                flagged={item.flagged}
-                name={item.login}
-                link={item.html_url}
-              />
-            ))}
+          {savedUsers?.map((item: SavedUser) => (
+            <UserItem
+              key={item.id}
+              id={item.id}
+              flagged={item.flagged}
+              name={item.name}
+              link={item.link}
+            />
+          ))}
         </article>
       </main>
     </>

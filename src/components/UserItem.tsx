@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import check from "../assets/icons/checkmark.png";
 import flag from "../assets/icons/flag.png";
 import greenflag from "../assets/icons/flag-green.png";
-import { useSavedUsers } from "../utils/useSavedUsers";
+import { SavedUser, useSavedUsers } from "../utils/useSavedUsers";
 
 type UserItemProps = {
   avatar?: string;
@@ -22,18 +22,23 @@ export const UserItem: React.FC<UserItemProps> = ({
   id,
 }: UserItemProps) => {
   const [isHovering, setIsHovering] = useState(false);
-  const { addUser } = useSavedUsers();
+  const { addUser, removeUser } = useSavedUsers();
 
   const onMouseEnter = () => setIsHovering(true);
   const onMouseLeave = () => setIsHovering(false);
 
-  const onClickSaveUser = useCallback(() => {}, [id]);
+  const onClickSaveUser = useCallback(() => {
+    if (!flagged) {
+      addUser({ name: name, id: id, link: link, flagged: true });
+    } else if (flagged) {
+      removeUser(id);
+    }
+  }, [id]);
 
   const iconSrc = useMemo(() => {
     if (isHovering) {
       return greenflag;
     }
-
     return flagged ? check : flag;
   }, [isHovering, flagged]);
 

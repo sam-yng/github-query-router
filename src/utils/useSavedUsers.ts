@@ -1,13 +1,19 @@
-import { GithubUser } from "./@types.user"
 import { useEffect, useState } from "react"
 
 const SAVED_USERS_KEY = "SAVED_USERS";
 
+export type SavedUser = {
+  id: number,
+  name: string,
+  link: string,
+  flagged: boolean
+}
+
 export const useSavedUsers = () => {
   const [isInitalized, setIsInitialized] = useState(false);
-  const [savedUsers, setSavedUsers] = useState<GithubUser[]>([]);
+  const [savedUsers, setSavedUsers] = useState<SavedUser[]>([ { name: "example", id: 2, flagged: true, link: "hello" }]);
 
-  const addUser = (user: GithubUser) => {
+  const addUser = (user: SavedUser) => {
     setSavedUsers((currentSavedUsers) => [...currentSavedUsers, user]);
   }
 
@@ -19,16 +25,14 @@ export const useSavedUsers = () => {
     if (isInitalized) {
       return
     }
-
     const storedValue = localStorage.getItem(SAVED_USERS_KEY);
     if (!storedValue) {
       setSavedUsers([]);
       setIsInitialized(true);
       return;
     }
-
     try {
-      const storedUsers = JSON.parse(storedValue) as GithubUser[];
+      const storedUsers = JSON.parse(storedValue) as SavedUser[];
       setSavedUsers(storedUsers);
     } catch (err) {
       console.error(err);
