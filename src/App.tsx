@@ -12,10 +12,11 @@ export const App: React.FC = () => {
       <main
         className={classNames(
           "bg-black",
-          "px-64",
+          "lg:px-64",
           "font-thin",
           "text-white",
-          "h-screen",
+          "md:h-screen",
+          "md:px-20",
         )}
       >
         <div>

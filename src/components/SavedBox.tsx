@@ -14,6 +14,7 @@ export const SavedBox: React.FC = () => {
           "border-white",
           "mt-8",
           "overflow-x-auto",
+          "overflow-y-auto",
           "fade-in",
           "rounded-xl",
         )}

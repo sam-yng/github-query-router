@@ -6,11 +6,12 @@ export const Home: React.FC = () => {
   return (
     <main
       className={classNames(
-        "h-[92vh]",
+        "h-screen",
         "flex",
         "flex-col",
         "justify-center",
         "items-center",
+        "lg:h-[86vh]",
       )}
     >
       <h1 className={classNames("text-4xl", "tracking-wider", "fade-in")}>

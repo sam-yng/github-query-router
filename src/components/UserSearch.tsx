@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { ResultsBox } from "./ResultsBox";
 import { Link } from "react-router-dom";
 
-export const UserInput: React.FC = () => {
+export const UserSearch: React.FC = () => {
   const [input, setInput] = useState<string>("");
 
   return (

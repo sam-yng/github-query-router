@@ -13,6 +13,8 @@ export const NavBar: React.FC = () => {
         "justify-between",
         "py-6",
         "items-center",
+        "px-10",
+        "md:px-0",
       )}
     >
       <Link to="/">

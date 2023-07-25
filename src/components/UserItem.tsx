@@ -58,18 +58,23 @@ export const UserItem: React.FC<UserItemProps> = ({
       )}
     >
       <h1
-        className={classNames("hover:text-green-500", "hover:cursor-pointer")}
+        className={classNames(
+          "hover:text-green-500",
+          "hover:cursor-pointer",
+          "mr-6",
+          "md:mr-0",
+        )}
       >
         {name}
       </h1>
-      <Link target="blank" to={link}>
+      <Link className={classNames("mr-6", "md:mr-0")} target="blank" to={link}>
         <h1 className={classNames("hover:text-green-500")}>{link}</h1>
       </Link>
       <button
         onClick={onClickSaveUser}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        className={classNames("w-6", "h-6")}
+        className={classNames("md:w-6", "md:h-6", "w-5", "h-5")}
       >
         <img alt="icon" src={iconSrc} />
       </button>
